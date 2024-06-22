@@ -1,0 +1,533 @@
+ <!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta charset="UTF-8">
+		<title>It is your Birthday</title>
+		<link rel="stylesheet" type="text/css" href="./css/format.css">
+	</head>
+
+	<body style="margin:0px">
+		<audio autoplay loop>
+			<source src="music/music.mp3" type="audio/mpeg">
+			Your browser does not support the audio.
+		</audio>
+		<canvas></canvas>
+		<div id="imgTxt">
+			<span id="Txt"></span> <br />
+			<span id="tmp"></span>
+			<img id="img" src="">
+		</div>
+		<div id="heartTxt">
+			<span id="clickMe">Click to relish her beautiful moments!</span>
+			<div id="heart">
+				<button id="button" onclick="play()"></button>
+			</div>
+		</div>
+		<div id="content">
+			<h2 id="together">Happiest Birthday Jana</h2>
+			<div id="timer">
+				<b id="d"></b> Days 
+				<b id="h"></b> Hours
+				<b id="m"></b> Minutes
+				<b id="s"></b> Seconds
+			</div>
+		</div>
+
+    	<div id = "typeDiv">
+        	<span id="txt1"></span> <br />
+        	<span id="txt2"></span>
+    	</div>		
+
+		<script >
+			var ok = 0;
+			var flag = 1;
+			var myImage = document.getElementById("img");
+			var myTxt = document.getElementById("Txt");
+			var imageArray = ["pic/pic461.png", "pic/pic462.png","pic/pic411.png", "pic/pic453.png","pic/pic429.png","pic/pic469.png","pic/pic450.png","pic/pic448.png"
+			, "pic/pic401.png", "pic/pic402.png", "pic/pic404.png", "pic/pic405.png",
+    "pic/pic406.png", "pic/pic407.png", "pic/pic408.png", "pic/pic409.png", "pic/pic410.png",
+    "pic/pic412.png", "pic/pic413.png", "pic/pic414.png", "pic/pic415.png", "pic/pic416.png", "pic/pic417.png",
+    "pic/pic418.png", "pic/pic419.png", "pic/pic420.png", "pic/pic421.png", "pic/pic422.png", "pic/pic423.png","pic/pic468.png", "pic/pic470.png", "pic/pic471.png",
+    "pic/pic472.png","pic/pic483.png",
+    "pic/pic424.png", "pic/pic425.png", "pic/pic426.png", "pic/pic427.png", "pic/pic428.png","pic/pic479.png", "pic/pic480.png", "pic/pic481.png", "pic/pic482.png",
+    "pic/pic430.png", "pic/pic431.png", "pic/pic432.png", "pic/pic433.png", "pic/pic435.png",
+    "pic/pic436.png"	, "pic/pic441.png",
+    "pic/pic442.png", "pic/pic443.png", "pic/pic444.png", "pic/pic445.png", "pic/pic446.png", "pic/pic447.png", "pic/pic449.png", "pic/pic451.png", "pic/pic452.png",
+    "pic/pic454.png", "pic/pic455.png", "pic/pic456.png", "pic/pic457.png", "pic/pic458.png", "pic/pic459.png",
+    "pic/pic460.png", "pic/pic463.png", "pic/pic464.png", "pic/pic465.png",
+    "pic/pic466.png", "pic/pic467.png", "pic/pic473.png", "pic/pic474.png", "pic/pic475.png", "pic/pic476.png", "pic/pic477.png",
+    "pic/pic478.png"
+];
+
+			var imageIndex = 0;
+			var txtArray = [
+    "Moments like these.",
+	"Happy you",
+    "Life's best moments.",
+    " ",
+    "Moments to remember.",
+    "Life, love, laughter.",
+    " ",
+    "Simple joys.",
+    "Everyday magic.",
+    "Treasuring us.",
+    "Making memories.",
+    " ",
+    "Heartfelt moments.",
+    "Lifes sweet moments.",
+    "Timeless moments.",
+    "Everyday happiness.",
+    "Together is better.",
+    "Shared moments.",
+    "Life's little joys.",
+    "With gratitude.",
+    "In this moment.",
+    "Moments that matter.",
+    "Heartfelt memories.",
+    "With love.",
+    " ",
+    "Together in joy.",
+    "Life's little wonders.",
+    "Moments of joy.",
+    "Savoring life.",
+    "Joy in simplicity.",
+    "Together we shine.",
+    "Everyday blessings.",
+    "Lifes true wealth.",
+    "Shared joy.",
+    "Simply grateful.",
+    "Everyday wonders.",
+    "Together, always.",
+    " ",
+    "Finding joy.",
+    "Life's gifts.",
+    "Everyday gratitude.",
+    "Sharing life.",
+    " ",
+    "Lifes special moments.",
+    "Savoring together.",
+    "Heartfelt connection.",
+    "Living fully.",
+    "Simple and true.",
+    "Joy in togetherness.",
+    "Lifes precious moments.",
+    "Heartfelt happiness.",
+    "Life's simple treasures.",
+    "Cherishing today.",
+    "In this together.",
+    "Everyday delight.",
+    "Lifes bright spots.",
+    "Grateful together.",
+    "Shared smiles.",
+    "Life's rich moments.",
+    "In lifes moments.",
+    "Simple joys shared.",
+    "Heartfelt moments.",
+    "Together we laugh.",
+    "Life's true joy.",
+    "Living and loving.",
+    "Simple pleasures.",
+    "In life's simplicity.",
+    " ",
+    "Grateful hearts.",
+    "Everyday love.",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " "
+];
+
+
+		
+			 var len = imageArray.length;
+			var t = 0;
+		</script>
+		
+		<script></script>
+		<script>//import utils from "./utils"
+
+			const canvas = document.querySelector('canvas')
+			const c = canvas.getContext('2d')
+			
+			canvas.width = innerWidth
+			canvas.height = innerHeight
+			
+			window.addEventListener("resize", function() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;     
+				init()
+			});
+			
+			/*
+			const mouse = {
+				x: innerWidth / 2,
+				y: innerHeight / 2
+			}
+			
+			
+			// Event Listeners
+			addEventListener('mousemove', event => {
+				mouse.x = event.clientX
+				mouse.y = event.clientY
+			})
+			*/
+			
+			// Objects
+			function Star(x, y, radius, color) {
+				this.x = x
+				this.y = y
+				this.radius = radius
+				this.color = color
+				this.velocity = {
+					x: (Math.random() - 0.5) * 8,
+					y: 3
+				}
+				this.friction = 0.8
+				this.gravity = 1
+			}
+			
+			Star.prototype.draw = function() {
+				c.save()
+				c.beginPath()
+				c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+				c.fillStyle = this.color
+				c.shadowColor = '#E3EAEF'
+				c.shadowBlur = 20
+				c.fill()
+				c.closePath()
+				c.restore()
+			}
+			
+			Star.prototype.update = function() {
+				this.draw()
+			
+				//When ball hits bottom of screen
+				if(this.y + this.radius + this.velocity.y > canvas.height - groundHeight){
+					this.velocity.y = -this.velocity.y * this.friction
+					this.shatter()
+				}
+				else{
+					this.velocity.y += this.gravity
+				}
+			
+				//Hits side of screen
+				if(this.x + this.radius + this.velocity.x > canvas.width || this.x - this.radius <= 0){
+					this.velocity.x = -this.velocity.x * this.friction
+					this.shatter()
+				}
+			
+				this.x += this.velocity.x
+				this.y += this.velocity.y
+			
+			}
+			
+			Star.prototype.shatter = function(){
+				this.radius -= 3
+				for(let i = 0; i < 8; i++){
+					miniStars.push(new MiniStar(this.x, this.y, 2))
+				}
+			
+			}
+			
+			function MiniStar(x, y, radius, color){
+				Star.call(this, x, y, radius, color)
+				this.velocity = {
+					x: (Math.random() - 0.5) * 10,
+					y: (Math.random() - 0.5) * 30 
+				}
+				this.friction = 0.8
+				this.gravity = 0.1
+				this.ttl = 100
+				this.opacity = 1
+			}
+			
+			MiniStar.prototype.draw = function() {
+				c.save()
+				c.beginPath()
+				c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+				c.fillStyle = `rgba(227,234, 239, ${this.opacity})`
+				c.shadowColor = '#E3EAEF'
+				c.shadowBlur = 20
+				c.fill()
+				c.closePath()
+				c.restore()
+			}
+			
+			MiniStar.prototype.update = function() {
+				this.draw()
+			
+				if(this.y + this.radius + this.velocity.y > canvas.height - groundHeight){
+					this.velocity.y = -this.velocity.y * this.friction
+				}
+				else{
+					this.velocity.y += this.gravity
+				}
+			
+				this.x += this.velocity.x
+				this.y += this.velocity.y
+				this.ttl -= 1
+				this.opacity -= 0.0001 * this.ttl
+			}
+			
+			function creatMountainRange(mountainAmount, height, color){
+				for(let i = 0; i < mountainAmount; i++){
+					const mountainWidth = canvas.width / mountainAmount
+					c.beginPath()
+					c.moveTo(i * mountainWidth, canvas.height)
+					c.lineTo(i * mountainWidth + mountainWidth + 0.2*canvas.height, canvas.height)
+					c.lineTo(i * mountainWidth + mountainWidth / 2, canvas.height - height)
+					c.lineTo(i * mountainWidth - 0.2*canvas.height, canvas.height)
+					c.fillStyle = color
+					c.fill()
+					c.closePath()
+				}
+			}
+			
+			// Implementation
+			const backgroundGradient = c.createLinearGradient(0, 0, canvas.width, canvas.height)
+			backgroundGradient.addColorStop(0, '#171e26')
+			backgroundGradient.addColorStop(1, '#3f586b')
+			
+			let stars
+			let miniStars
+			let backgroundStars
+			let ticker = 0
+			let randomSpawnRate = 75
+			const groundHeight = 0.09 * canvas.height
+			let inf = 1e9
+			function init() {
+				stars = []
+				miniStars = []
+				backgroundStars = []
+			   
+				for(let i = 0; i < 200; i++){
+					const x = Math.random() * canvas.width
+					const y = Math.random() * canvas.height
+					const radius = Math.random() * 3
+					backgroundStars.push(new Star(x, y, radius, 'white'))
+				}
+			}
+			
+			// Animation Loop
+			function animate() {
+				c.clearRect(0, 0, 0, canvas.height)
+				c.fillStyle = backgroundGradient
+				c.fillRect(0, 0, canvas.width, canvas.height)
+			
+				backgroundStars.forEach(backgroundStar => {
+					backgroundStar.draw()
+				})
+			
+				if(flag) creatMountainRange(1, canvas.height * 0.7, '#384551')
+				if(flag) creatMountainRange(2, canvas.height * 0.6, '#2B3843')
+				if(flag) creatMountainRange(3, canvas.height * 0.4, '#26333E')
+				c.fillStyle = '#182028'
+				c.fillRect(0, canvas.height - groundHeight, canvas.width, groundHeight)
+				stars.forEach((star, index) => {
+					star.update();
+					if(star.radius == 0){
+						stars.splice(index, 1)
+					}
+				});
+			
+				miniStars.forEach((miniStar, index) => {
+					miniStar.update();
+					if(miniStar.ttl == 0){
+						miniStars.splice(index, 1)
+					}
+				});
+			
+				ticker++
+				if(ticker >= inf){
+					ticker = 0
+				}
+				if(ticker % randomSpawnRate == 0){
+					const radius = 9
+					const x = Math.max(radius, Math.random() * canvas.width - radius)
+					stars.push(new Star(x, -100, 9, '#E3EAEF'))
+					randomSpawnRate = Math.floor(Math.random() * (200 - 125 + 1) + 125)
+				}
+			
+				requestAnimationFrame(animate)
+			}
+			
+			init()
+			animate()
+			</script>
+		<script>
+			let i = 0;
+			let text1 = "Hey! Kuhu.";
+			let text2 = "Today is the your Birthday."
+			let speed = 100;
+			
+			function typeWriter(text, para){
+				if(ok == 2){
+					clearInterval(typeInterval);
+				}
+				if(i < text.length){
+					document.getElementById(para).innerHTML += text.charAt(i);
+					i++;
+					speed = Math.random() * 50 + 100;
+				}
+				else{
+					if(ok == 0){
+						i = 0;
+					}
+					ok += 1;
+				}
+			}
+			
+			var typeInterval;
+			
+			//window.onload = function() {
+			//	window.onload = function(){};
+				   typeInterval = setInterval(function(){
+					if(ok == 0){
+						typeWriter("Hey! Kuhu", "txt1");
+					}
+					else if(ok == 1){
+						typeWriter("Today is the your Birthday.", "txt2");
+					}
+				}, 100);
+			//};
+			 </script>
+		<script >
+			var dv = document.getElementById("content");
+			
+			dv.style.opacity = 0;
+			var val = 0;
+			
+			function timer() {
+				var start = new Date(2002, 6, 23, 3, 0);
+				var t = new Date() - start;
+				var d = Math.floor(t / 1000 / 60 / 60 / 24);
+				var h = Math.floor(t / 1000 / 60 / 60 % 24);
+				if(h < 10){
+					h = "0" + h;
+				}
+				var m = Math.floor(t / 1000 / 60 % 60);
+				if(m < 10){
+					m = "0" + m;
+				}
+				var s = Math.floor(t / 1000 % 60);
+				if(s < 10){
+					s = "0" + s;
+				}
+				document.getElementById("d").innerHTML = d;
+				document.getElementById("h").innerHTML = h;
+				document.getElementById("m").innerHTML = m;
+				document.getElementById("s").innerHTML = s;
+			}
+			
+			function fadein(){
+				if(val < 1){
+					val += 0.025;
+					dv.style.opacity = val;
+				}
+				else{
+					clearInterval(fadeinInterval);
+					if(ok == 2){
+						ok += 1;
+					}
+				}
+			}
+			
+			var fadeInterval;
+			var fadeinInterval;
+			
+			timer();
+			setInterval(timer, 1000);
+			fadeInterval = setInterval(function(){
+				if(ok == 2){
+					clearInterval(fadeInterval);
+					fadeinInterval = setInterval(fadein, 50);
+				}
+			}, 50)
+			</script>
+		<script>
+			var btn = document.getElementById("heartTxt");
+			btn.style.opacity = 0;
+			var btnVal = 0;
+			
+			function showImage(){
+				//document.getElementById("imgTxt").style.opacity = 0;
+				myImage.setAttribute("src", imageArray[imageIndex]);
+				myTxt.innerHTML = txtArray[imageIndex];
+				//document.getElementById("imgTxt").style.opacity = 1 - flag;
+				imageIndex++;
+				if(imageIndex >= len){
+					imageIndex = 0;
+				}
+			}
+			
+			function play(){
+				if(t == 0){
+					myImage.setAttribute("src", "");
+					myTxt.innerHTML = "";
+					imageIndex = 0;
+					clearInterval(showImageInterval);
+				}
+				flag = 1 - flag;
+				document.getElementById("typeDiv").style.opacity = flag;
+				document.getElementById("imgTxt").style.opacity = 1 - flag;
+				if(t == 0){
+					//setTimeout(showImage, 1000);
+					setInterval(showImage, 2500);
+				}
+				t++;
+			}
+			
+			function preshowImage(){
+				document.getElementById("imgTxt").style.opacity = 0;
+				myImage.setAttribute("src", imageArray[imageIndex]);
+				myTxt.innerHTML = txtArray[imageIndex];
+				imageIndex++;
+				if(imageIndex >= len){
+					imageIndex = 0;
+				}
+			}
+			
+			function buttonFadeIn(){
+				if(btnVal < 1){
+					btnVal += 0.025;
+					btn.style.opacity = btnVal;
+				}
+				else{
+					clearInterval(buttonInterval);
+					if(ok == 3){
+						ok += 1;
+					}
+				}
+			}
+			
+			
+			
+			function event(){
+			
+				showImageInterval = setInterval(preshowImage, 100);
+			
+				imgInterval = setInterval(function (){
+					if(ok == 3){
+						setTimeout(function(){buttonInterval = setInterval(buttonFadeIn, 50);}, 1500);
+						clearInterval(imgInterval);
+					}
+				}, 50);
+			}
+			
+			var showImageInterval;
+			var imgInterval;
+			var buttonInterval;
+			
+			event();
+			</script>
+	</body>
+</html>
